@@ -20,9 +20,6 @@
     "channel": "发布工具",
     "filesTitle": "招标文件",
     "pdfs": [
-      { "name": "招标公告（正文）", "path": "pdf/招标公告.pdf" },
-      { "name": "投标人须知前附表", "path": "pdf/投标人须知前附表.pdf" },
-      { "name": "评标办法", "path": "pdf/评标办法.pdf" },
       { "name": "合同条款及格式", "path": "pdf/合同条款及格式.pdf" }
     ]
   },

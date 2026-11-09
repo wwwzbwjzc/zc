@@ -330,6 +330,14 @@
       </div>
       <div class="file-list" id="fileList"></div>
 
+      <div class="files-foot">
+        <label class="add-btn" for="filePicker">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+          添加本地 PDF
+        </label>
+        <input type="file" id="filePicker" accept="application/pdf" multiple hidden>
+        <p class="files-tip">也可以把 PDF 直接拖进左侧预览区。</p>
+      </div>
     </aside>
   </div>
 </main>
@@ -624,7 +632,8 @@ function addLocalFiles(list) {
   arr.forEach(f => files.push({ name: f.name.replace(/\.pdf$/i, ''), path: URL.createObjectURL(f) }));
   openFile(start);
 }
-$('filePicker').addEventListener('change', (e) => { addLocalFiles(e.target.files); e.target.value = ''; });
+const filePicker = $('filePicker');
+if (filePicker) filePicker.addEventListener('change', (e) => { addLocalFiles(e.target.files); e.target.value = ''; });
 
 const viewer = $('viewer');
 ['dragenter', 'dragover'].forEach(t => viewer.addEventListener(t, (e) => {

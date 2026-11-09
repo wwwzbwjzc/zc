@@ -1,0 +1,35 @@
+{
+  "site": {
+    "name": "中国招标投标公共服务平台",
+    "nameEn": "China Tendering & Public Service Platform",
+    "links": [
+      { "text": "首页", "href": "#" },
+      { "text": "联系我们", "href": "#" }
+    ]
+  },
+
+  "banner": {
+    "title": "依法必须招标项目招标公告和公示信息发布专栏",
+    "sub": "依据《招标公告和公示信息发布管理办法》（国家发展改革委令第10号）设立"
+  },
+
+  "bulletin": {
+    "title": "古宋镇、樊王山镇、大坝苗族乡、仙峰苗族乡、周家镇、樊王山镇、莲花镇“百村百万”生猪养殖场厂房建设及屋顶分布式光伏发电、储能项目EPC总承包招标公告",
+    "receiveTime": "2025年12月02日",
+    "media": "中国招标投标公共服务平台",
+    "channel": "发布工具",
+    "filesTitle": "招标文件",
+    "pdfs": [
+      { "name": "招标公告（正文）", "path": "pdf/招标公告.pdf" },
+      { "name": "投标人须知前附表", "path": "pdf/投标人须知前附表.pdf" },
+      { "name": "评标办法", "path": "pdf/评标办法.pdf" },
+      { "name": "合同条款及格式", "path": "pdf/合同条款及格式.pdf" }
+    ]
+  },
+
+  "footer": {
+    "links": [],
+    "records": [],
+    "copyright": ""
+  }
+}

@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>依法必须招标项目招标公告和公示信息发布专栏</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "Source Han Sans SC", sans-serif;
+    background: #ffffff; color: #333; font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ============================ 顶部深色横幅 ============================ */
+  .hdr {
+    position: relative; overflow: hidden; background: #061020;
+    background-image:
+      radial-gradient(760px 300px at 50% 58%, rgba(52,124,224,.62), transparent 72%),
+      linear-gradient(96deg, #04070e 0%, #0a1a30 22%, #123a6b 50%, #0a1a30 78%, #04070e 100%);
+    padding-bottom: 34px;
+  }
+  /* 光纤流线 */
+  .hdr::before {
+    content: ""; position: absolute; inset: -40% -12% -10% -12%; pointer-events: none;
+    background-image:
+      repeating-linear-gradient(103deg, rgba(150,210,255,0) 0 82px, rgba(180,225,255,.20) 82px 84px, rgba(150,210,255,0) 84px 168px),
+      repeating-linear-gradient(95deg, rgba(255,255,255,0) 0 124px, rgba(215,238,255,.12) 124px 125px, rgba(255,255,255,0) 125px 246px),
+      repeating-linear-gradient(110deg, rgba(80,160,255,0) 0 52px, rgba(120,190,255,.13) 52px 54px, rgba(80,160,255,0) 54px 108px);
+    filter: blur(2.2px);
+    -webkit-mask-image: linear-gradient(90deg, transparent 2%, #000 26%, #000 74%, transparent 98%);
+    mask-image: linear-gradient(90deg, transparent 2%, #000 26%, #000 74%, transparent 98%);
+  }
+  /* 中央光晕 */
+  .hdr::after {
+    content: ""; position: absolute; left: 50%; top: 50%; width: 1000px; height: 360px;
+    transform: translate(-50%, -50%); pointer-events: none;
+    background: radial-gradient(closest-side, rgba(120,190,255,.5), rgba(44,116,210,.2) 58%, transparent 80%);
+    filter: blur(18px);
+  }
+
+  .hdr-top {
+    position: relative; z-index: 2; height: 26px;
+    display: flex; align-items: flex-end; justify-content: flex-end; gap: 22px;
+    padding: 0 14px 0 0;
+  }
+  .hdr-top a { font-size: 11px; color: #93a7c4; letter-spacing: .5px; }
+  .hdr-top a:hover { color: #d6e6fb; }
+
+  .brand {
+    position: relative; z-index: 2;
+    display: flex; align-items: center; gap: 9px;
+    margin: 6px 0 0 clamp(22px, 17.5vw, 240px);
+  }
+  .brand .logo { width: 30px; height: 30px; flex: none; }
+  .brand .txt .n {
+    font-size: 17px; font-weight: 700; color: #ffffff; line-height: 20px;
+    letter-spacing: .6px; text-shadow: 0 1px 4px rgba(0,0,0,.45);
+  }
+  .brand .txt .en {
+    margin-top: 3px; font-size: 7.5px; color: #a9c6e8; line-height: 1; letter-spacing: .35px;
+    font-family: Arial, Helvetica, sans-serif; white-space: nowrap;
+  }
+
+  .banner-txt { position: relative; z-index: 2; text-align: center; padding: 14px 16px 0; }
+  .banner-txt h1 {
+    font-size: 29px; font-weight: 700; letter-spacing: 3px; color: #fff; line-height: 1.25;
+    text-shadow: 0 0 22px rgba(126,196,255,.65), 0 2px 6px rgba(0,0,0,.4);
+  }
+  .beam {
+    width: 540px; max-width: 62%; height: 1.5px; margin: 9px auto 0;
+    background: linear-gradient(90deg, transparent, #9ecdfa 30%, #ffffff 50%, #9ecdfa 70%, transparent);
+    box-shadow: 0 0 14px 3px rgba(140,200,255,.55);
+  }
+  .banner-sub {
+    position: relative; z-index: 2; text-align: center;
+    padding: 9px 16px 18px; font-size: 11.5px; color: #b7cbe4; letter-spacing: .4px;
+  }
+
+  /* ============================ 主体 ============================ */
+  .main { padding: 0 44px 0; }
+  body.no-footer .main { padding-bottom: 48px; }
+  @media (max-width: 760px) { .main { padding: 0 14px; } }
+
+  .b-title {
+    margin: 14px 0 0; font-size: 15.5px; font-weight: 700; color: #1b5fa6; line-height: 24px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .b-title:hover { color: #0f4b8c; }
+  .b-meta {
+    display: flex; flex-wrap: wrap; gap: 4px 18px;
+    margin: 7px 0 9px; font-size: 12.5px; color: #9aa1ab;
+  }
+  .b-meta b { color: #6b7178; font-weight: 400; }
+
+  /* ============================ 阅读器（左：黑框预览 / 右：文件列表） ==== */
+  .reader { display: flex; gap: 10px; align-items: stretch; }
+
+  .viewer {
+    flex: 1 1 auto; min-width: 0;
+    display: flex; flex-direction: column;
+    border: 1px solid #222528; background: #525659;
+    height: min(78vh, 900px); min-height: 520px;
+  }
+
+  /* --- 深色工具栏 --- */
+  .vbar {
+    flex: none; height: 40px; background: #323639; border-bottom: 1px solid #212426;
+    display: flex; align-items: center; gap: 2px; padding: 0 8px; color: #c9ccce;
+    font-size: 12px; user-select: none;
+  }
+  .vbar .ico {
+    width: 30px; height: 28px; border-radius: 3px; border: 0; background: transparent; color: inherit;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+  }
+  .vbar .ico:hover { background: rgba(255,255,255,.10); }
+  .vbar .ico[disabled] { opacity: .38; cursor: default; background: transparent; }
+  .vbar .sep { width: 1px; height: 20px; background: rgba(255,255,255,.16); margin: 0 6px; }
+  .pnum {
+    display: flex; align-items: center; gap: 4px; height: 24px; padding: 0 4px;
+    border: 1px solid rgba(255,255,255,.22); border-radius: 2px; background: rgba(0,0,0,.22);
+  }
+  .pnum input {
+    width: 24px; height: 20px; border: 0; background: transparent; color: #e8eaec;
+    text-align: center; font-size: 12px; outline: none; font-family: inherit;
+  }
+  .pnum span { color: #a9adaf; font-size: 12px; padding-right: 2px; }
+  .zoom-label {
+    height: 26px; padding: 0 8px; display: flex; align-items: center; gap: 5px;
+    border-radius: 3px; cursor: pointer; color: #c9ccce; white-space: nowrap;
+  }
+  .zoom-label:hover { background: rgba(255,255,255,.10); }
+  .vbar .grow { flex: 1 1 auto; }
+  .vbar .file-name {
+    max-width: 40%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    color: #9aa0a3; font-size: 11.5px; padding-right: 6px;
+  }
+
+  /* --- 页面区 --- */
+  .pages {
+    flex: 1 1 auto; overflow: auto; padding: 10px 0 16px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    background: #525659; scrollbar-color: #8b8f92 #525659;
+  }
+  .pages.center { justify-content: center; }
+  .pages canvas.pg {
+    display: block; max-width: 100%; background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.25);
+  }
+  .vload { color: #cfd3d6; font-size: 13px; }
+  .vmsg {
+    max-width: 480px; margin: 0 20px; color: #d6d9db; text-align: center; line-height: 2; font-size: 13px;
+  }
+  .vmsg strong { display: block; font-size: 14.5px; margin-bottom: 4px; color: #fff; }
+  .vmsg code {
+    display: inline-block; max-width: 100%; margin-top: 6px; padding: 3px 9px; border-radius: 3px;
+    background: rgba(0,0,0,.32); color: #ffd8d2; font-size: 11.5px; word-break: break-all;
+    font-family: Consolas, Menlo, monospace;
+  }
+  .vmsg .tip { display: block; margin-top: 10px; color: #a7adb1; font-size: 12px; }
+
+  /* --- 右侧文件列表 --- */
+  .files {
+    flex: none; width: 288px; display: flex; flex-direction: column;
+    border: 1px solid #e5e9ef; background: #fff; height: min(78vh, 900px); min-height: 520px;
+  }
+  .files-head {
+    flex: none; height: 44px; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 14px; border-bottom: 1px solid #eef1f6; font-size: 13.5px; font-weight: 700; color: #1f2c3d;
+  }
+  .files-head .cnt { font-weight: 400; color: #98a2b3; font-size: 12px; }
+  .file-list { flex: 1 1 auto; overflow-y: auto; padding: 6px 0; }
+  .fitem {
+    display: flex; align-items: flex-start; gap: 9px; padding: 10px 14px; cursor: pointer;
+    border-left: 3px solid transparent;
+  }
+  .fitem:hover { background: #f6f9fe; }
+  .fitem.on { background: #eef5ff; border-left-color: #1a6fd4; }
+  .fitem .pdf-ico { flex: none; width: 26px; height: 30px; }
+  .fitem .fname {
+    font-size: 13px; color: #2b3648; line-height: 18px; word-break: break-all;
+  }
+  .fitem.on .fname { color: #1668cc; font-weight: 600; }
+  .fitem .fsub { margin-top: 2px; font-size: 11px; color: #a2aab6; }
+  .files-foot { flex: none; padding: 10px 12px 12px; border-top: 1px solid #eef1f6; }
+  .add-btn {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    height: 34px; border: 1px dashed #b9cde8; border-radius: 3px; background: #f8fbff;
+    color: #1a6fd4; font-size: 12.5px; cursor: pointer;
+  }
+  .add-btn:hover { background: #eef5ff; border-color: #86b3e6; }
+  .files-tip { margin-top: 8px; font-size: 11px; color: #a7aeb9; line-height: 1.7; }
+
+  /* ============================ 页脚 ============================ */
+  footer { padding: 56px 20px 70px; text-align: center; color: #9b9b9b; font-size: 12px; }
+  .f-links { display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .f-links a:hover { color: #1a6fd4; }
+  .f-links i { color: #d0d3d7; font-style: normal; }
+  .f-rec {
+    margin-top: 16px; display: flex; align-items: center; justify-content: center;
+    gap: 8px; flex-wrap: wrap; color: #9b9b9b;
+  }
+  .f-rec .badge { width: 15px; height: 16px; flex: none; }
+  .f-rec span.gap { display: inline-block; width: 14px; }
+
+  .warn {
+    margin: 10px 44px 0; padding: 9px 14px; border: 1px solid #f0d8a8; background: #fff8e9;
+    color: #8a6d1f; font-size: 12.5px; border-radius: 3px; display: none;
+  }
+  .warn b { color: #7a5c10; }
+
+  @media (max-width: 1000px) {
+    .reader { flex-direction: column; }
+    .files { width: 100%; height: auto; min-height: 0; }
+    .file-list { max-height: 210px; }
+    .viewer { height: 70vh; }
+    .banner-txt h1 { font-size: 19px; letter-spacing: 1.5px; }
+    .brand { margin-left: 16px; }
+    .brand .txt .n { font-size: 15px; }
+    .beam { max-width: 80%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ 深色横幅 ============ -->
+<header class="hdr">
+  <div class="hdr-top" id="siteLinks"></div>
+
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 40 40" aria-hidden="true">
+      <defs>
+        <linearGradient id="lgA" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0" stop-color="#ffa63c"/><stop offset=".45" stop-color="#f2432b"/><stop offset="1" stop-color="#b8121f"/>
+        </linearGradient>
+      </defs>
+      <path d="M30.5 8.2A13.6 13.6 0 1 0 30.5 31.8" fill="none" stroke="url(#lgA)"
+            stroke-width="6.4" stroke-linecap="round"/>
+      <path d="M21.4 10.4 15.6 29.6" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".95"/>
+    </svg>
+    <div class="txt">
+      <div class="n" id="siteName">中国招标投标公共服务平台</div>
+      <div class="en" id="siteNameEn">China Tendering &amp; Public Service Platform</div>
+    </div>
+  </div>
+
+  <div class="banner-txt">
+    <h1 id="bannerTitle">依法必须招标项目招标公告和公示信息发布专栏</h1>
+    <div class="beam"></div>
+  </div>
+  <div class="banner-sub" id="bannerSub">依据《招标公告和公示信息发布管理办法》（国家发展改革委令第10号）设立</div>
+</header>
+
+<div class="warn" id="warn">
+  未能读取 <b>config.json</b>，当前使用内置默认配置。请双击 <b>start-server.bat</b> 启动本地服务后访问
+  <b>http://localhost:8000</b>，配置文件与 PDF 预览才能正常工作。
+</div>
+
+<!-- ============ 主体 ============ -->
+<main class="main">
+  <h1 class="b-title" id="bTitle"></h1>
+  <div class="b-meta" id="bMeta"></div>
+
+  <div class="reader">
+    <!-- 左：黑框 PDF 预览 -->
+    <section class="viewer" id="viewer">
+      <div class="vbar">
+        <button class="ico" title="侧边栏缩略图">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M9 4v16"/>
+          </svg>
+        </button>
+
+        <div class="pnum">
+          <input id="pageInput" value="1" inputmode="numeric" title="跳转页码">
+          <span>/ <b id="pageTotal">0</b></span>
+        </div>
+
+        <div class="sep"></div>
+
+        <button class="ico" id="zoomOut" title="缩小">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6M8 11h6"/>
+          </svg>
+        </button>
+        <button class="ico" id="zoomIn" title="放大">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6M8 11h6M11 8v6"/>
+          </svg>
+        </button>
+
+        <div class="zoom-label" id="zoomLabel" title="恢复自动缩放">
+          <span id="zoomText">自动缩放</span>
+          <svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor"><path d="M1 3l4 4 4-4z"/></svg>
+        </div>
+
+        <button class="ico" id="fitWidth" title="适应宽度">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M3 5v14M21 5v14"/><path d="M7 12h10"/><path d="M9.4 9.6 7 12l2.4 2.4M14.6 9.6 17 12l-2.4 2.4"/>
+          </svg>
+        </button>
+
+        <div class="grow"></div>
+        <div class="file-name" id="barFileName"></div>
+
+        <a class="ico" id="openNew" href="#" target="_blank" rel="noopener" title="在新窗口打开">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M14 4h6v6M20 4l-8.5 8.5"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/>
+          </svg>
+        </a>
+        <button class="ico" id="printBtn" title="打印">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M7 9V4h10v5"/><rect x="4" y="9" width="16" height="7" rx="1.5"/><path d="M7 14h10v6H7z"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="pages center" id="pages">
+        <div class="vmsg"><strong>暂无可预览的 PDF</strong>请在 config.json 的 bulletin.pdfs 里填写文件，或点右下角「添加本地 PDF」。</div>
+      </div>
+    </section>
+
+    <!-- 右：PDF 文件列表 -->
+    <aside class="files">
+      <div class="files-head">
+        <span id="filesTitle">招标文件</span>
+        <span class="cnt"><span id="filesCount">0</span> 个附件</span>
+      </div>
+      <div class="file-list" id="fileList"></div>
+      <div class="files-foot">
+        <label class="add-btn" for="filePicker">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+          添加本地 PDF
+        </label>
+        <input type="file" id="filePicker" accept="application/pdf" multiple hidden>
+        <p class="files-tip">也可以把 PDF 直接拖进左侧预览区。</p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="f-links" id="fLinks"></div>
+  <div class="f-rec" id="fRec"></div>
+</footer>
+
+<!-- PDF.js（本地 vendor 目录，离线可用；加载失败会自动降级为浏览器内嵌预览） -->
+<script src="vendor/pdfjs/pdf.min.js"></script>
+<script>
+/* =====================================================================
+ *  配置全部来自 config.json（同目录）。读取失败时用下面的默认值兜底。
+ * ===================================================================== */
+const DEFAULT_CONFIG = {
+  site: { name: '中国招标投标公共服务平台', nameEn: 'China Tendering & Public Service Platform', links: [] },
+  banner: { title: '依法必须招标项目招标公告和公示信息发布专栏', sub: '' },
+  bulletin: {
+    title: '（未读取到 config.json）', receiveTime: '', media: '', channel: '',
+    filesTitle: '招标文件', pdfs: []
+  },
+  footer: { links: [], records: [], copyright: '' }
+};
+
+let CFG = DEFAULT_CONFIG;
+let files = [];            // [{name, path}]
+let curFile = -1;
+let pdfDoc = null;
+let renderToken = 0;
+let zoom = null;           // null = 自动缩放（按宽度）
+let usingPdfJs = false;
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g,
+  c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+/* 路径 -> 可访问 URL：绝对路径走本地服务 /_local，相对路径直接拼 */
+function toUrl(p) {
+  if (!p) return '';
+  p = String(p).trim();
+  if (/^(https?:|blob:|data:)/i.test(p)) return p;
+  if (/^file:/i.test(p)) p = decodeURIComponent(p.replace(/^file:\/{0,3}/i, ''));   // file:///D:/a.pdf -> D:/a.pdf
+  const isAbs = /^[a-zA-Z]:[\\/]/.test(p) || p.startsWith('\\\\') || p.startsWith('/');
+  if (isAbs) return '/_local?p=' + encodeURIComponent(p.replace(/\\/g, '/'));
+  return p.split('/').map(encodeURIComponent).join('/');
+}
+function isAbsPath(p) {
+  return /^[a-zA-Z]:[\\/]/.test(String(p || '')) || String(p || '').startsWith('\\\\');
+}
+function fileNameOf(p) {
+  const s = String(p || '').replace(/\\/g, '/');
+  return decodeURIComponent(s.split('/').pop() || '未命名.pdf');
+}
+
+/* ---------------- 页面静态部分 ---------------- */
+function paintChrome() {
+  const s = CFG.site || {}, b = CFG.banner || {}, bu = CFG.bulletin || {}, f = CFG.footer || {};
+
+  $('siteName').textContent = s.name || '';
+  $('siteNameEn').textContent = s.nameEn || '';
+  $('siteNameEn').style.display = s.nameEn ? '' : 'none';
+  $('siteLinks').innerHTML = (s.links || []).map(l =>
+    `<a href="${esc(l.href || '#')}" target="${l.href && l.href !== '#' ? '_blank' : '_self'}">${esc(l.text)}</a>`).join('');
+
+  $('bannerTitle').textContent = b.title || '';
+  $('bannerSub').textContent = b.sub || '';
+  $('bannerSub').style.display = b.sub ? '' : 'none';
+
+  $('bTitle').textContent = bu.title || '';
+  $('bTitle').title = bu.title || '';
+  document.title = bu.title || document.title;
+
+  $('bMeta').innerHTML = [
+    ['接收时间', bu.receiveTime], ['发布媒介', bu.media], ['来源渠道', bu.channel]
+  ].filter(x => x[1]).map(([k, v]) => `<span>${k}&nbsp;<b>${esc(v)}</b></span>`).join('');
+
+  $('filesTitle').textContent = bu.filesTitle || '招标文件';
+
+  $('fLinks').innerHTML = (f.links || []).map(t => `<a href="#">${esc(t)}</a>`).join('<i>|</i>');
+  $('fRec').innerHTML =
+    `<svg class="badge" viewBox="0 0 32 34" aria-hidden="true">
+       <circle cx="16" cy="18" r="13" fill="#f08a24"/>
+       <circle cx="16" cy="18" r="10" fill="#e8452c"/>
+       <path d="M16 11l2.3 4.7 5.2.7-3.8 3.6.9 5.1L16 22.8l-4.6 2.3.9-5.1-3.8-3.6 5.2-.7z" fill="#ffd75e"/>
+       <path d="M6 8c3-4 7-6 10-6s7 2 10 6" fill="none" stroke="#e8452c" stroke-width="2.4" stroke-linecap="round"/>
+     </svg>`
+    + (f.records || []).map((r, i) => `${i ? '<span class="gap"></span>' : ''}<span>${esc(r)}</span>`).join('')
+    + (f.copyright ? `<span class="gap"></span><span>${esc(f.copyright)}</span>` : '');
+
+  // 页脚内容全空时整块隐藏（不留空白）
+  const hasFooter = (f.links && f.links.length) || (f.records && f.records.length) || !!f.copyright;
+  document.querySelector('footer').style.display = hasFooter ? '' : 'none';
+  document.body.classList.toggle('no-footer', !hasFooter);
+}
+
+/* ---------------- 文件列表 ---------------- */
+const PDF_ICO = `<svg class="pdf-ico" viewBox="0 0 26 30" aria-hidden="true">
+  <path d="M3 3.5A2.5 2.5 0 0 1 5.5 1h11L25 9.5V26.5A2.5 2.5 0 0 1 22.5 29h-17A2.5 2.5 0 0 1 3 26.5z" fill="#e34a3a"/>
+  <path d="M16.5 1 25 9.5h-6.5A2 2 0 0 1 16.5 7.5z" fill="#f9b0a6"/>
+  <text x="13" y="22" text-anchor="middle" font-size="8.5" font-family="Arial" font-weight="700" fill="#fff">PDF</text>
+</svg>`;
+
+function renderFiles() {
+  const box = $('fileList');
+  box.innerHTML = '';
+  $('filesCount').textContent = files.length;
+
+  if (!files.length) {
+    box.innerHTML = '<div style="padding:26px 16px;text-align:center;color:#a2aab6;font-size:12.5px;line-height:1.9">'
+      + '暂无附件<br>在 config.json 里配置 bulletin.pdfs</div>';
+    return;
+  }
+  files.forEach((f, i) => {
+    const d = document.createElement('div');
+    d.className = 'fitem' + (i === curFile ? ' on' : '');
+    d.title = f.path;
+    d.innerHTML = PDF_ICO + `<div><div class="fname">${esc(f.name)}</div>`
+      + `<div class="fsub">${i === curFile ? '正在预览' : '点击预览'}</div></div>`;
+    d.addEventListener('click', () => openFile(i));
+    box.appendChild(d);
+  });
+}
+
+/* ---------------- PDF 预览 ---------------- */
+function setBarText(t) { $('barFileName').textContent = t || ''; }
+
+function viewerMsg(html) {
+  const box = $('pages');
+  box.innerHTML = `<div class="vmsg">${html}</div>`;
+  box.classList.add('center');
+  $('pageTotal').textContent = '0';
+  $('pageInput').value = '1';
+}
+
+async function openFile(i) {
+  curFile = i;
+  renderFiles();
+  const f = files[i];
+  const box = $('pages');
+  const token = ++renderToken;
+  pdfDoc = null;
+
+  if (!f) {
+    setBarText('');
+    $('openNew').removeAttribute('href');
+    viewerMsg('<strong>暂无附件</strong>在 config.json 的 bulletin.pdfs 中填写 PDF 路径。');
+    return;
+  }
+
+  setBarText(f.name);
+  const url = toUrl(f.path);
+  $('openNew').href = url;
+  $('pageTotal').textContent = '0';
+  $('pageInput').value = '1';
+
+  if (!usingPdfJs) {          // 降级：浏览器内嵌阅读器
+    box.classList.remove('center');
+    box.style.padding = '0';
+    box.innerHTML = `<iframe src="${url}#view=FitH" style="width:100%;height:100%;border:0;background:#525659" title="PDF 预览"></iframe>`;
+    return;
+  }
+
+  box.style.padding = '';
+  box.classList.add('center');
+  box.innerHTML = '<div class="vload">正在加载 PDF…</div>';
+
+  // 预检：先确认文件存在，避免把「路径写错」误报成「PDF 损坏」
+  let missing = false;
+  try {
+    const hr = await fetch(url, { method: 'HEAD' });
+    missing = !hr.ok;
+  } catch (e) { /* 跨域等情况交给 PDF.js 自己判断 */ }
+  if (token !== renderToken) return;
+  if (missing) {
+    viewerMsg(`<strong>找不到这个文件</strong>路径：<code>${esc(f.path)}</code>`
+      + '<span class="tip">请检查 config.json 里的路径是否写对（注意 .pdf 后缀和文件夹层级）。</span>');
+    return;
+  }
+
+  try {
+    const doc = await pdfjsLib.getDocument({ url }).promise;
+    if (token !== renderToken) return;
+
+    pdfDoc = doc;
+    $('pageTotal').textContent = doc.numPages;
+    $('pageInput').max = doc.numPages;
+
+    box.innerHTML = '';
+    box.classList.remove('center');
+    for (let n = 1; n <= doc.numPages; n++) {
+      if (token !== renderToken) return;
+      await renderPage(doc, n, box, token);
+    }
+    updatePageNo();
+  } catch (err) {
+    if (token !== renderToken) return;
+    console.warn('[pdf] 加载失败', err);
+    const name = String((err && err.name) || '');
+    let tip;
+    if (name === 'InvalidPDFException') {
+      tip = '这个文件不是有效的 PDF（可能改错了后缀，或文件已损坏）。';
+    } else if (isAbsPath(f.path)) {
+      tip = '绝对路径的文件需要先双击 start-server.bat 启动本地服务，再访问 http://localhost:8000。';
+    } else {
+      tip = '请确认文件已放在网站目录下，并且是通过 start-server.bat 启动后访问的。';
+    }
+    viewerMsg(`<strong>无法打开这个 PDF</strong>路径：<code>${esc(f.path)}</code><span class="tip">${esc(tip)}</span>`);
+  }
+}
+
+async function renderPage(doc, n, box, token) {
+  const page = await doc.getPage(n);
+  const base = page.getViewport({ scale: 1 });
+  const avail = Math.max(240, (box.clientWidth || 820) - 58);
+  const fit = avail / base.width;
+  const scale = fit * (zoom || 1);
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  const vp = page.getViewport({ scale: scale * dpr });
+  const cv = document.createElement('canvas');
+  cv.className = 'pg';
+  cv.dataset.page = n;
+  cv.width = Math.round(vp.width);
+  cv.height = Math.round(vp.height);
+  cv.style.width = Math.round(base.width * scale) + 'px';
+  if (token !== renderToken) return;
+  box.appendChild(cv);
+
+  await page.render({ canvasContext: cv.getContext('2d'), viewport: vp }).promise;
+}
+
+function reRender(keepRatio) {
+  const box = $('pages');
+  const ratio = keepRatio && box.scrollHeight > box.clientHeight
+    ? box.scrollTop / (box.scrollHeight - box.clientHeight) : 0;
+  openFile(curFile).then(() => {
+    box.scrollTop = ratio * Math.max(0, box.scrollHeight - box.clientHeight);
+  });
+}
+
+/* 页码跟随滚动 */
+function updatePageNo() {
+  const box = $('pages');
+  const cvs = box.querySelectorAll('canvas.pg');
+  if (!cvs.length) return;
+  const mid = box.scrollTop + box.clientHeight * 0.35;
+  let cur = 1;
+  cvs.forEach(c => { if (c.offsetTop <= mid) cur = +c.dataset.page; });
+  $('pageInput').value = cur;
+}
+$('pages').addEventListener('scroll', () => { if (usingPdfJs) updatePageNo(); });
+
+/* 页码跳转 */
+$('pageInput').addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter') return;
+  const n = Math.min(Math.max(1, parseInt($('pageInput').value || '1', 10)), pdfDoc ? pdfDoc.numPages : 1);
+  const cv = $('pages').querySelector(`canvas[data-page="${n}"]`);
+  if (cv) $('pages').scrollTop = cv.offsetTop - 10;
+  $('pageInput').value = n;
+  $('pageInput').blur();
+});
+
+/* 缩放 */
+function applyZoom(mult) {
+  zoom = Math.min(3, Math.max(0.35, (zoom || 1) * mult));
+  $('zoomText').textContent = Math.round(zoom * 100) + '%';
+  reRender(true);
+}
+$('zoomIn').addEventListener('click', () => applyZoom(1.15));
+$('zoomOut').addEventListener('click', () => applyZoom(1 / 1.15));
+$('zoomLabel').addEventListener('click', () => { zoom = null; $('zoomText').textContent = '自动缩放'; reRender(true); });
+$('fitWidth').addEventListener('click', () => { zoom = null; $('zoomText').textContent = '自动缩放'; reRender(false); });
+$('printBtn').addEventListener('click', () => {
+  if (curFile < 0) return;
+  window.open(toUrl(files[curFile].path), '_blank');
+});
+
+/* 窗口尺寸变化时重绘（自动缩放模式下才有意义） */
+let rzTimer = null;
+window.addEventListener('resize', () => {
+  if (!usingPdfJs || curFile < 0) return;
+  clearTimeout(rzTimer);
+  rzTimer = setTimeout(() => reRender(true), 260);
+});
+
+/* ---------------- 本地文件 / 拖拽 ---------------- */
+function addLocalFiles(list) {
+  const arr = Array.from(list || []).filter(f => /pdf$/i.test(f.name) || f.type === 'application/pdf');
+  if (!arr.length) return;
+  const start = files.length;
+  arr.forEach(f => files.push({ name: f.name.replace(/\.pdf$/i, ''), path: URL.createObjectURL(f) }));
+  openFile(start);
+}
+$('filePicker').addEventListener('change', (e) => { addLocalFiles(e.target.files); e.target.value = ''; });
+
+const viewer = $('viewer');
+['dragenter', 'dragover'].forEach(t => viewer.addEventListener(t, (e) => {
+  e.preventDefault(); viewer.style.outline = '2px dashed #7fb0e8'; viewer.style.outlineOffset = '-4px';
+}));
+['dragleave', 'drop'].forEach(t => viewer.addEventListener(t, (e) => {
+  e.preventDefault(); viewer.style.outline = 'none';
+}));
+viewer.addEventListener('drop', (e) => addLocalFiles(e.dataTransfer && e.dataTransfer.files));
+
+/* ---------------- 启动 ---------------- */
+(async function boot() {
+  try {
+    const r = await fetch('config.json', { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    CFG = await r.json();
+  } catch (e) {
+    CFG = DEFAULT_CONFIG;
+    $('warn').style.display = 'block';
+  }
+
+  paintChrome();
+
+  files = ((CFG.bulletin && CFG.bulletin.pdfs) || []).filter(p => p && p.path)
+    .map(p => ({ name: p.name || fileNameOf(p.path).replace(/\.pdf$/i, ''), path: p.path }));
+
+  usingPdfJs = !!window.pdfjsLib;
+  if (usingPdfJs) pdfjsLib.GlobalWorkerOptions.workerSrc = 'vendor/pdfjs/pdf.worker.min.js';
+
+  renderFiles();
+  if (files.length) openFile(0);
+})();
+</script>
+</body>
+</html>

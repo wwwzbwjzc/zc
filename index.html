@@ -184,14 +184,6 @@
   }
   .fitem.on .fname { color: #1668cc; font-weight: 600; }
   .fitem .fsub { margin-top: 2px; font-size: 11px; color: #a2aab6; }
-  .files-foot { flex: none; padding: 10px 12px 12px; border-top: 1px solid #eef1f6; }
-  .add-btn {
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-    height: 34px; border: 1px dashed #b9cde8; border-radius: 3px; background: #f8fbff;
-    color: #1a6fd4; font-size: 12.5px; cursor: pointer;
-  }
-  .add-btn:hover { background: #eef5ff; border-color: #86b3e6; }
-  .files-tip { margin-top: 8px; font-size: 11px; color: #a7aeb9; line-height: 1.7; }
 
   /* ============================ 页脚 ============================ */
   footer { padding: 56px 20px 70px; text-align: center; color: #9b9b9b; font-size: 12px; }
@@ -318,7 +310,7 @@
       </div>
 
       <div class="pages center" id="pages">
-        <div class="vmsg"><strong>暂无可预览的 PDF</strong>请在 config.json 的 bulletin.pdfs 里填写文件，或点右下角「添加本地 PDF」。</div>
+        <div class="vmsg"><strong>暂无可预览的 PDF</strong>请在 config.json 的 bulletin.pdfs 里填写文件。</div>
       </div>
     </section>
 
@@ -329,15 +321,6 @@
         <span class="cnt"><span id="filesCount">0</span> 个附件</span>
       </div>
       <div class="file-list" id="fileList"></div>
-
-      <div class="files-foot">
-        <label class="add-btn" for="filePicker">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
-          添加本地 PDF
-        </label>
-        <input type="file" id="filePicker" accept="application/pdf" multiple hidden>
-        <p class="files-tip">也可以把 PDF 直接拖进左侧预览区。</p>
-      </div>
     </aside>
   </div>
 </main>
@@ -623,26 +606,6 @@ window.addEventListener('resize', () => {
   clearTimeout(rzTimer);
   rzTimer = setTimeout(() => reRender(true), 260);
 });
-
-/* ---------------- 本地文件 / 拖拽 ---------------- */
-function addLocalFiles(list) {
-  const arr = Array.from(list || []).filter(f => /pdf$/i.test(f.name) || f.type === 'application/pdf');
-  if (!arr.length) return;
-  const start = files.length;
-  arr.forEach(f => files.push({ name: f.name.replace(/\.pdf$/i, ''), path: URL.createObjectURL(f) }));
-  openFile(start);
-}
-const filePicker = $('filePicker');
-if (filePicker) filePicker.addEventListener('change', (e) => { addLocalFiles(e.target.files); e.target.value = ''; });
-
-const viewer = $('viewer');
-['dragenter', 'dragover'].forEach(t => viewer.addEventListener(t, (e) => {
-  e.preventDefault(); viewer.style.outline = '2px dashed #7fb0e8'; viewer.style.outlineOffset = '-4px';
-}));
-['dragleave', 'drop'].forEach(t => viewer.addEventListener(t, (e) => {
-  e.preventDefault(); viewer.style.outline = 'none';
-}));
-viewer.addEventListener('drop', (e) => addLocalFiles(e.dataTransfer && e.dataTransfer.files));
 
 /* ---------------- 启动 ---------------- */
 (async function boot() {
